@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <style>
+        /* Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 400px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            color: #fff;
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 12px;
+            background: #ff8c00;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e07b00;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .diabetic {
+            background: rgba(255, 0, 0, 0.7);
+        }
+
+        .not-diabetic {
+            background: rgba(0, 255, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Diabetes Prediction</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Pregnancies:</label>
+            <input type="text" name="pregnancies" placeholder="Enter Pregnancies" required>
+            
+            <label>Glucose:</label>
+            <input type="text" name="glucose" placeholder="Enter Glucose Level" required>
+            
+            <label>Blood Pressure:</label>
+            <input type="text" name="bp" placeholder="Enter Blood Pressure" required>
+            
+            <label>Skin Thickness:</label>
+            <input type="text" name="skin_thickness" placeholder="Enter Skin Thickness" required>
+            
+            <label>Insulin:</label>
+            <input type="text" name="insulin" placeholder="Enter Insulin Level" required>
+            
+            <label>BMI:</label>
+            <input type="text" name="bmi" placeholder="Enter BMI" required>
+            
+            <label>Diabetes Pedigree Function:</label>
+            <input type="text" name="dpf" placeholder="Enter Diabetes Pedigree Function" required>
+            
+            <label>Age:</label>
+            <input type="text" name="age" placeholder="Enter Age" required>
+            
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if result %}
+            <div class="result {% if 'diabetic' in result %}diabetic{% else %}not-diabetic{% endif %}">
+                {{ result }}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
